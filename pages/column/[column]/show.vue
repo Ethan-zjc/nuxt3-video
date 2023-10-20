@@ -3,7 +3,7 @@
 
         <Head>
             <Title>{{ title }}{{ info.data.name }}</Title>
-            <Meta name="description" :content="`最新最全的${title}${info.data.name}尽在淳渔影视。`" />
+            <Meta name="description" :content="`最新最全的${title}${info.data.name}尽在影视。`" />
         </Head>
 
         <el-row :gutter="40">

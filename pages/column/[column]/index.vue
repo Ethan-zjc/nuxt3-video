@@ -5,7 +5,7 @@
 
             <Head>
                 <Title>{{ $titleRender(`最新${info.data.name}在线观看`) }}</Title>
-                <Meta name="description" :content="`最新最全的${info.data.name}在线观看尽在淳渔影视。`" />
+                <Meta name="description" :content="`最新最全的${info.data.name}在线观看尽在影视。`" />
             </Head>
 
             <el-row :gutter="20" class="mt-20" v-for="categoryItem in res.data">
