@@ -1,5 +1,6 @@
 <template>
     <div class="container mt-20">
+
         <Head>
             <Title>{{ detail.movie.title }}_{{ detail.title }}在线观看</Title>
             <Meta name="description" :content="detail.movie.summary" />
@@ -115,9 +116,10 @@ import { UserMovieBase } from "~/types/column/movie";
 import '~/plugins/xgplayer/payTip/index.css'
 import PayTip from "~/plugins/xgplayer/payTip";
 
-const token = ref('')
-
 const route = useRoute()
+const token = useToken()
+const loginDialogVisible = useLoginDialogVisible()
+
 const id = route.params.id
 const qrcodeUrl = ref('')
 // 是否购买了影片
@@ -141,7 +143,14 @@ const detail = detailRes.value.data
 /** 查询用户是否购买影片 */
 getUserMovie()
 async function getUserMovie() {
-    // ...
+    if (!token.value) {
+        isUserBuy.value = false
+    } else {
+        const { data } = await useClientRequest<ResData<UserMovieBase>>(`user-movie`, {
+            query: { movieId: detail.movieId }
+        })
+        isUserBuy.value = !!data
+    }
 }
 
 
@@ -203,6 +212,7 @@ onMounted(async () => {
                 if (!token.value) {
                     // 显示登录弹层   
                     console.log('显示登录弹层')
+                    loginDialogVisible.value = true;
                 } else {
                     player && buyMovie(player)
                 }
@@ -264,6 +274,15 @@ const [
         }
     })
 ])
+
+watch(token, async () => {
+    // 重新获取购买状态
+    await getUserMovie()
+    // 隐藏支付弹层
+    payTipInstance?.hide()
+    // 继续播放
+    player?.play()
+})
 </script>
   
 <style lang="scss" scoped>

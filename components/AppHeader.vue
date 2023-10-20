@@ -5,7 +5,7 @@
         <div class="container between">
             <div class="header__left">
                 <nuxt-link to="/" class="logo">KK影视</nuxt-link>
-                <nav class="hidden-sm-and-down">
+                <nav class="hidden-sm-and-down" v-if="route.path.indexOf('/user') === -1">
                     <ul>
                         <li :class="route.path === '/' ? 'active' : ''">
                             <NuxtLink to="/">首页</NuxtLink>
@@ -41,7 +41,7 @@
                 </ClientOnly>
             </div>
         </div>
-        <div class="mobile-nav hidden-sm-only hidden-sm-and-up">
+        <div class="mobile-nav hidden-sm-only hidden-sm-and-up" v-if="route.path.indexOf('/user') === -1">
             <ul>
                 <li v-for="item in navigation.data" :key="item.id"
                     :class="route.params.column === item.value ? 'active' : ''">

@@ -4,7 +4,7 @@
             <!-- 用于 seo 标题 描述    -->
 
             <Head>
-                <Title>最新{{ info.data.name }}在线观看</Title>
+                <Title>{{ $titleRender(`最新${info.data.name}在线观看`) }}</Title>
                 <Meta name="description" :content="`最新最全的${info.data.name}在线观看尽在淳渔影视。`" />
             </Head>
 
